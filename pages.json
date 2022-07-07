@@ -1,0 +1,204 @@
+{
+	"pages": [
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "Login",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息中心",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/queue/queue",
+			"style": {
+				"navigationBarTitleText": "排队中心",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/user-detail/user-detail",
+			"style": {
+				"navigationBarTitleText": "用户信息",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/car-mgt/car-mgt",
+			"style": {
+				"navigationBarTitleText": "车辆管理",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/car-edit/car-edit",
+			"style": {
+				"navigationBarTitleText": "车辆编辑",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/enter-park-apply/enter-park-apply",
+			"style": {
+				"navigationBarTitleText": "入园申请",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/car-start/car-start",
+			"style": {
+				"navigationBarTitleText": "提货发车",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/phone-consult/phone-consult",
+			"style": {
+				"navigationBarTitleText": "电话咨询",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/teaching/teaching",
+			"style": {
+				"navigationBarTitleText": "教学视频",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "园区导航",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/reserve-queue/reserve-queue",
+			"style": {
+				"navigationBarTitleText": "预约排队",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/sign-in/sign-in",
+			"style": {
+				"navigationBarTitleText": "码头签到",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/release-apply/release-apply",
+			"style": {
+				"navigationBarTitleText": "放行申请",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/goods/goods",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/goods-search/goods-search",
+			"style": {
+				"navigationBarTitleText": "货物查询",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/enter-park-history/enter-park-history",
+			"style": {
+				"navigationBarTitleText": "海关申请记录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/release-history/release-history",
+			"style": {
+				"navigationBarTitleText": "放行申请记录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/goods-detail/goods-detail",
+			"style": {
+				"navigationBarTitleText": "货物详情",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/car-add/car-add",
+			"style": {
+				"navigationBarTitleText": "车辆新增",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/message-detail/message-detail",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "Smart Logistics",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar": {
+		"selectedColor": "#6378ee",
+		"color": "#bfbfbf",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "/static/images/tabbar/Home.png",
+				"selectedIconPath": "/static/images/tabbar/Home-Select.png"
+			},
+			{
+				"pagePath": "pages/queue/queue",
+				"text": "排队",
+				"iconPath": "/static/images/tabbar/Queue.png",
+				"selectedIconPath": "/static/images/tabbar/Queue-Select.png"
+			},
+			{
+				"pagePath": "pages/message/message",
+				"text": "消息",
+				"iconPath": "/static/images/tabbar/Message.png",
+				"selectedIconPath": "/static/images/tabbar/Message-Select.png"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "我的",
+				"iconPath": "/static/images/tabbar/User.png",
+				"selectedIconPath": "/static/images/tabbar/User-Select.png"
+			}
+		]
+	},
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	}
+}

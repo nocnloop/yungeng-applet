@@ -1,0 +1,56 @@
+/*
+ * @Author: Qiuxue.Wu - LCFC
+ * @Date: 2022-04-25 09:43:42
+ * @LastEditors: Qiuxue.Wu - LCFC
+ * @LastEditTime: 2022-05-19 16:15:25
+ * @Description: file content
+ * @FilePath: /smart-logistics-applet/mixins/location.js
+ */
+export default {
+
+  data() {
+    return {
+      longitude: "",
+      latitude: ""
+    }
+  },
+
+  onLoad() {
+    this.getLocation()
+  },
+
+  methods: {
+    getLocation() {
+      uni.authorize({
+        scope: "scope.userLocation",
+        success: () => {
+          uni.getLocation({
+            type: "wgs84",
+            success: (res) => {
+              this.longitude = res.longitude
+              this.latitude = res.latitude
+              this.afterGetLocation()
+            }
+          })
+          uni.stopPullDownRefresh()
+        },
+        fail: () => {
+          uni.showModal({
+            content: "获取位置失败，请允许",
+            showCancel: false,
+            success: (res) => {
+              res.confirm && uni.openSetting({
+                success: (res) => {
+                  const isAuth = res.authSetting[
+                    "scope.userLocation"]
+                  isAuth && this.getLocation()
+                }
+              })
+            }
+          })
+          uni.stopPullDownRefresh()
+        }
+      })
+    }
+  }
+}
