@@ -127,9 +127,9 @@ export default {
         const result = await login({ code: this.code })
         console.log(result)
         // needSyncUserInfo 1 表示后台还未存储了用户的微信个人信息，需要进行用户授权
-        const needSyncUserInfo = result.data.needSyncUserInfo
-        this.$store.dispatch("app/tokenAction", result.data.accessToken)
-        needSyncUserInfo ? (this.isShowGetUserInfoButton = true) : await this.noNeedSyncUserInfoAction()
+        // const needSyncUserInfo = result.data.needSyncUserInfo
+        // this.$store.dispatch("app/tokenAction", result.data.accessToken)
+        // needSyncUserInfo ? (this.isShowGetUserInfoButton = true) : await this.noNeedSyncUserInfoAction()
       } catch (e) {
         console.log(e)
         this.$refs.uNotify.show({

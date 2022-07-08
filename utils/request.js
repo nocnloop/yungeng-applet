@@ -1,7 +1,7 @@
 // import qs from "qs"
 import store from "../store/index.js"
 
-const BASE_URL = "http://101.34.87.100/api"
+const BASE_URL = "http://124.222.207.36/api"
 // const BASE_URL = "https://ct-test.lcfuturecenter.com:14443/api"
 
 const okAction = (otherParams) => {
