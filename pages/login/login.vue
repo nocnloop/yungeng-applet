@@ -6,12 +6,12 @@
       <view class="welcome">欢迎回来！</view>
       <view class="btn-content">
         <u-button
-          v-if="isShowGetUserInfoButton"
           :loading="isLoading"
           type="primary"
-          @click="onGetUserInfo"
           shape="circle"
           text="点击获取用户信息"
+          openType="getPhoneNumber"
+          @getphonenumber="decryptPhoneNumber"
         >
         </u-button>
       </view>
@@ -24,7 +24,7 @@
 
 <script>
 import { getCarInfo } from "../../api/car.js"
-import { login, saveWxUser } from "../../api/login.js"
+import { login, saveWxUser, wxuserregister } from "../../api/login.js"
 import { getUserInfo, getWeChatUserInfo } from "../../api/user.js"
 export default {
   data() {
@@ -164,6 +164,28 @@ export default {
     async getCarInfo() {
       const result = await getCarInfo()
       this.$store.dispatch("app/carAction", result.data)
+    },
+
+    /**
+     * @description: 获取手机号的回调
+     * @param {*} e
+     * @return {*}
+     */
+    async decryptPhoneNumber(e) {
+      try {
+        this.isLoading = true
+        // const errorMsg = e.detail.errMsg
+        // if (errorMsg == "getPhoneNumber:ok") {
+        //   const { code, encryptedData, iv } = e.detail
+        //   await wxuserregister({ code, encryptedData, iv })
+        // }
+        await this.getCode()
+        await wxuserregister({ code: this.code, encryptedData: "", iv: "" })
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.isLoading = false
+      }
     }
 
   }
