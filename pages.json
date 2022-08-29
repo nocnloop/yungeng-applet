@@ -161,7 +161,16 @@
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/machine-list/machine-list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "绑定列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Smart Logistics",

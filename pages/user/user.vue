@@ -1,26 +1,13 @@
 <template>
   <view class="user">
-    <view class="avatar" @click="onViewUserDetail">
-      <view class="avatar-center">
-        <view class="wechat-avatar">
-          <image v-if="weChatUser.avatar" :src="weChatUser.avatar" mode="widthFix"></image>
-          <image v-else src="/static/images/icons/Avatar.png" mode="widthFix"></image>
-        </view>
-        <view class="wechat-nickname">
-          <text v-if="weChatUser.nickName">{{ weChatUser.nickName }}</text>
-          <text v-else>请登录</text>
-        </view>
-      </view>
+    <view class="avatar">
+      <view class="circle"></view>
+      <text>哈工大机器人</text>
     </view>
 
-    <view class="func">
-      <view class="func-item u-border-bottom" @click="onViewUserDetail">
-        <text>个人信息</text>
-        <u-icon name="arrow-right" color="$base-back-color" size="30rpx"></u-icon>
-      </view>
-      <view class="func-item u-border-bottom" @click="onViewCarDetail">
-        <text>车辆信息</text>
-        <u-icon name="arrow-right" color="$base-back-color" size="30rpx"></u-icon>
+    <view class="btns">
+      <view class="layer" @click="onViewMachine">
+        <view></view>
       </view>
     </view>
   </view>
@@ -41,9 +28,6 @@ export default {
 
   onLoad() {
     this.getUserInfo()
-    // const result = this.$copy(this.$store.state.app.weChatUser)
-    // this.weChatUser.avatar = result.avatar.replace("https://thirdwx.qlogo.cn", "https://wx.qlogo.cn")
-    // this.weChatUser.nickName = result.nickName
   },
 
   methods: {
@@ -53,14 +37,15 @@ export default {
       })
     },
 
-    onViewCarDetail() {
+    onViewMachine() {
       uni.navigateTo({
-        url: "../car-mgt/car-mgt"
+        url: "../machine-list/machine-list"
       })
     },
 
     async getUserInfo() {
-      await getUserInfo()
+      const userData = await getUserInfo()
+      console.log(userData)
     }
 
   }
@@ -68,56 +53,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user {
-  height: 100vh;
-  background-color: $base-back-color;
-}
-
 .avatar {
-  height: 340rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0093e9;
-  background-image: linear-gradient(to bottom, #5677fc 0%, #71abff 100%);
-
-  .avatar-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  flex-direction: column;
+  padding: 90rpx 0;
+  .circle {
+    width: 170rpx;
+    height: 170rpx;
+    box-shadow: 0px 2px 11px 1px rgba(143, 143, 143, 0.15);
+    border-radius: 50%;
   }
-
-  .wechat-avatar {
-    image {
-      width: 120rpx;
-      height: 120rpx;
-    }
-  }
-
-  .wechat-nickname {
-    text {
-      display: flex;
-      padding-top: 20rpx;
-      color: #fff;
-      font-size: 30rpx;
-    }
+  text {
+    padding-top: 30rpx;
+    font-size: 38rpx;
+    font-weight: 800;
+    color: #333333;
   }
 }
 
-.func {
-  margin-top: 30rpx;
-  background-color: #fff;
+.btns {
   padding: 0 20rpx;
-
-  .func-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100rpx;
-    padding: 0 20rpx;
-    font-size: 30rpx;
-    color: $base-color;
+  .layer {
+    height: 150rpx;
+    border-radius: 24rpx;
+    box-shadow: 0px 2px 11px 1px rgba(143, 143, 143, 0.15);
   }
 }
 </style>

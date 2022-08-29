@@ -2,9 +2,9 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-04-18 17:07:45
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-05-07 15:45:04
+ * @LastEditTime: 2022-08-29 17:21:28
  * @Description: file content
- * @FilePath: /smart-logistics-applet/App.vue
+ * @FilePath: /yungeng-applet/App.vue
 -->
 <script>
 export default {
@@ -49,4 +49,8 @@ export default {
 <style lang="scss">
 /* 注意要写在第一行，同时给style标签加入lang="scss"属性 */
 @import "@/uni_modules/uview-ui/index.scss";
+
+.u-button--primary {
+  background-image: linear-gradient(to right, #0dccff, #4760ff);
+}
 </style>
