@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { getUserInfo } from "@/api/user.js"
+
 export default {
   data() {
     return {
@@ -38,9 +40,10 @@ export default {
   },
 
   onLoad() {
-    const result = this.$copy(this.$store.state.app.weChatUser)
-    this.weChatUser.avatar = result.avatar.replace("https://thirdwx.qlogo.cn", "https://wx.qlogo.cn")
-    this.weChatUser.nickName = result.nickName
+    this.getUserInfo()
+    // const result = this.$copy(this.$store.state.app.weChatUser)
+    // this.weChatUser.avatar = result.avatar.replace("https://thirdwx.qlogo.cn", "https://wx.qlogo.cn")
+    // this.weChatUser.nickName = result.nickName
   },
 
   methods: {
@@ -54,6 +57,10 @@ export default {
       uni.navigateTo({
         url: "../car-mgt/car-mgt"
       })
+    },
+
+    async getUserInfo() {
+      await getUserInfo()
     }
 
   }

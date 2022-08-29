@@ -9,8 +9,8 @@
 import { httpGet, httpPost } from "../utils/request.js"
 
 export function getUserInfo(params, otherParams) {
-  const url = "/smart-logistics/weChat/driver/getDriverInfo"
-  return httpGet(url, params, otherParams)
+  const url = "/microuser/queryuser"
+  return httpPost(url, params, otherParams)
 }
 
 export function updateUserInfo(params, otherParams) {

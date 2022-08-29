@@ -2,7 +2,6 @@
 import store from "../store/index.js"
 
 const BASE_URL = "http://124.222.207.36/api"
-// const BASE_URL = "https://ct-test.lcfuturecenter.com:14443/api"
 
 const okAction = (otherParams) => {
   const isBack = "back" in otherParams
@@ -64,7 +63,7 @@ const instance = (option) => {
       url: BASE_URL + url,
       header: header,
       method: method || "GET",
-      data: data || {},
+      data: { ...data, openID: store.state.app.token } || {},
       success: (res) => {
         switch (res.data.statusCode) {
         case 200:

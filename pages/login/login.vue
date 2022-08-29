@@ -72,6 +72,7 @@ export default {
         const result = await login({ code: this.code })
         const { openID } = result.data
         if (openID) {
+          this.$store.dispatch("app/tokenAction", openID)
           uni.reLaunch({ url: "../index/index" })
         }
       } catch (e) {
