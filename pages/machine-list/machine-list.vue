@@ -2,17 +2,17 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-08-29 16:14:41
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-08-29 17:47:50
+ * @LastEditTime: 2022-08-30 10:47:39
  * @Description: file content
  * @FilePath: /yungeng-applet/pages/machine-list/machine-list.vue
 -->
 <template>
   <view>
     <view class="btn">
-      <u-button type="primary" text="添加" size="large" shape="circle" @click="isShow = true"></u-button>
+      <u-button type="primary" text="添加" size="large" shape="circle" @click="isScanShow = true"></u-button>
     </view>
 
-    <Scan :isShow="isShow" @close="isShow = false" />
+    <Scan :isShow="isScanShow" @close="isScanShow = false" @openMachine="openMachine" />
   </view>
 </template>
 
@@ -24,7 +24,8 @@ export default {
 
   data() {
     return {
-      isShow: false
+      isScanShow: false,
+      isMachineShow: false
     }
   },
 
@@ -35,6 +36,12 @@ export default {
   methods: {
     async querydevices() {
       await querydevices()
+    },
+
+    openMachine() {
+      uni.navigateTo({
+        url: "../machine-detail/machine-detail"
+      })
     }
 
   }

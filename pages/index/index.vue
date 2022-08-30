@@ -1,178 +1,292 @@
+<!--
+ * @Author: Qiuxue.Wu - LCFC
+ * @Date: 2022-05-13 16:46:09
+ * @LastEditors: Qiuxue.Wu - LCFC
+ * @LastEditTime: 2022-08-30 16:51:51
+ * @Description: file content
+ * @FilePath: /yungeng-applet/pages/index/index.vue
+-->
 <template>
   <view class="home">
-    <swiper class="swiper" :style="{ height: bannerHeight }" :indicator-dots="true" :autoplay="false">
-      <swiper-item v-for="item in banner" :key="item">
-        <image class="swiper-image" :src="item" mode="aspectFill"></image>
-      </swiper-item>
-    </swiper>
-
-    <view class="func">
-      <view class="func-box">
-        <view class="func-item u-border-right u-border-bottom" @click="onEnterApply">
-          <u-icon name="/static/images/index/dock.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>入园申请</text>
-        </view>
-        <view class="func-item u-border-right u-border-bottom" @click="onCarStart">
-          <u-icon name="/static/images/index/car.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>提货发车</text>
-        </view>
-        <view class="func-item u-border-bottom" @click="onReserveQueue">
-          <u-icon name="/static/images/index/queue.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>预约排队</text>
-        </view>
-        <view class="func-item u-border-right u-border-bottom" @click="onSignIn">
-          <u-icon name="/static/images/index/qrcode.png" color="#2979ff" size="70rpx"></u-icon>
-          <text>码头签到</text>
-        </view>
-        <view class="func-item u-border-right u-border-bottom" @click="onReleaseApply">
-          <u-icon name="/static/images/index/apply.png" color="#2979ff" size="70rpx"></u-icon>
-          <text>放行申请</text>
-        </view>
-        <view class="func-item u-border-bottom" @click="onGoodsSearch">
-          <u-icon name="/static/images/index/search.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>货物查询</text>
-        </view>
-        <view class="func-item u-border-right" @click="onMap">
-          <u-icon name="/static/images/index/map.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>园区导航</text>
-        </view>
-        <view class="func-item u-border-right" @click="onTeaching">
-          <u-icon name="/static/images/index/video.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>教学视频</text>
-        </view>
-        <view class="func-item" @click="onPhoneConsult">
-          <u-icon name="/static/images/index/phone.png" color="#2979ff" size="80rpx"></u-icon>
-          <text>咨询电话</text>
+    <!-- 导航 -->
+    <u-navbar>
+      <view class="u-nav-slot" slot="left">
+        <view class="machine">
+          <text>机器111</text>
+          <text>工作中</text>
+          <u-icon name="arrow-down-fill" color="#999" size="20rpx"></u-icon>
         </view>
       </view>
+    </u-navbar>
+    <view style="height: 80px"></view>
+    <!-- 里程 -->
+    <view class="distance">
+      <text class="left">767</text>
+      <view class="right">
+        <text>km</text>
+        <text>累计里程</text>
+      </view>
+    </view>
+    <!-- 时间 -->
+    <view class="day">
+      <view>
+        <text>5623</text>
+        <text>㎡</text>
+      </view>
+      <view>
+        <text>322</text>
+        <text>天</text>
+      </view>
+    </view>
+    <!-- 功能按钮 -->
+    <view class="btns">
+      <view class="left">
+        <view class="item">
+          <image :src="h1Img" mode="widthFix" />
+          <text>喷幅</text>
+        </view>
+        <view class="item">
+          <image :src="h2Img" mode="widthFix" />
+          <text>流量</text>
+        </view>
+        <view class="item">
+          <image :src="h3Img" mode="widthFix" />
+          <text>设置</text>
+        </view>
+      </view>
+      <view class="right">
+        <image :src="yanghuImg" mode="widthFix" />
+        <text>保养</text>
+        <view class="corner">
+          <image :src="cornerImg" mode="widthFix" />
+          <text>3</text>
+        </view>
+      </view>
+    </view>
+    <!-- 月统计 -->
+    <view class="month">
+      <view class="layer">
+        <view class="item">
+          <view class="top">
+            <text>356</text>
+            <text>亩</text>
+          </view>
+          <text class="bottom">本月作业亩数</text>
+        </view>
+        <view class="item">
+          <view class="top">
+            <text>356</text>
+            <text>h</text>
+          </view>
+          <text class="bottom">本月作业时间</text>
+        </view>
+        <view class="item">
+          <view class="top">
+            <text>356</text>
+            <text>km</text>
+          </view>
+          <text class="bottom">本月作业里程</text>
+        </view>
+      </view>
+      <view></view>
     </view>
   </view>
 </template>
 
 <script>
-import Complete from "@/mixins/complete"
-import { getBanner } from "../../api/banner"
+import location from "@/mixins/location"
 
 export default {
 
-  mixins: [Complete],
+  mixins: [location],
 
   data() {
     return {
-      banner: [],
-      bannerHeight: uni.upx2px(750) * 0.6 + "px"
+      yanghuImg: require("@/static/images/home/yanghu.png"),
+      cornerImg: require("@/static/images/home/corner.png"),
+      h1Img: require("@/static/images/home/h1.png"),
+      h2Img: require("@/static/images/home/h2.png"),
+      h3Img: require("@/static/images/home/h3.png")
     }
   },
 
   onLoad() {
-    this.getBanner()
-    // uni.setClipboardData({
-    //   data: this.$store.state.app.token,
-    //   success: function() {
-    //     uni.showModal({
-    //       title: "提示",
-    //       content: "Token 粘贴成功",
-    //       showCancel: true
-    //     })
-    //   }
-    // })
+
+  },
+
+  onPullDownRefresh() {
+    this.getLocation()
   },
 
   methods: {
-    async getBanner() {
-      const result = await getBanner()
-      this.banner = result.data
-    },
 
-    onEnterApply() {
-      this.completeUserInfo()
-      uni.navigateTo({
-        url: "../enter-park-apply/enter-park-apply"
-      })
-    },
-    onCarStart() {
-      this.completeUserInfo()
-      uni.navigateTo({
-        url: "../car-start/car-start"
-      })
-    },
-    onReserveQueue() {
-      this.completeUserInfo()
-      uni.navigateTo({
-        url: "../reserve-queue/reserve-queue"
-      })
-    },
-    onSignIn() {
-      this.completeUserInfo()
-      uni.navigateTo({
-        url: "../sign-in/sign-in"
-      })
-    },
-    onReleaseApply() {
-      this.completeUserInfo()
-      uni.navigateTo({
-        url: "../release-apply/release-apply"
-      })
-    },
-    onGoodsSearch() {
-      this.completeUserInfo()
-      uni.navigateTo({
-        url: "../goods-search/goods-search"
-      })
-    },
-    onMap() {
-      uni.navigateTo({
-        url: "../map/map"
-      })
-    },
-    onTeaching() {
-      uni.navigateTo({
-        url: "../teaching/teaching"
-      })
-    },
-    onPhoneConsult() {
-      uni.navigateTo({
-        url: "../phone-consult/phone-consult"
-      })
+    afterGetLocation() {
+      console.log(this.latitude)
+      console.log(this.longitude)
     }
   }
 }
 </script>
-
 <style lang="scss" scoped>
-.home {
-  height: 100vh;
-  background-color: $base-back-color;
-}
-
-.swiper {
-  .swiper-image {
-    width: 100%;
-    height: 100%;
+.machine {
+  display: flex;
+  align-items: center;
+  text:nth-child(1) {
+    font-size: 30rpx;
+    font-weight: 500;
+    color: #333333;
+  }
+  text:nth-child(2) {
+    padding: 0 10rpx;
+    font-size: 24rpx;
+    color: #999999;
   }
 }
-
-.func {
-  padding: 20rpx;
-
-  .func-box {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-radius: 10rpx;
-    background-color: #ffffff;
-  }
-}
-
-.func-item {
-  height: 180rpx;
+.distance {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  .left {
+    font-size: 70rpx;
+    font-weight: 800;
+    color: #333333;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text {
+      font-size: 24rpx;
+      color: #999999;
+    }
+  }
+}
 
-  text {
-    padding-top: 10rpx;
-    color: $base-color-main;
+.day {
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  view {
+    text:nth-child(1) {
+      font-size: 36rpx;
+      font-weight: 800;
+      color: #333333;
+    }
+    text:nth-child(2) {
+      padding-left: 5rpx;
+      font-size: 24rpx;
+      color: #999999;
+    }
+  }
+  view:last-child {
+    margin-left: 150rpx;
+  }
+}
+
+.btns {
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .left {
+    flex: 1;
+    height: 150rpx;
+    border-radius: 10rpx;
+    background: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    .item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      image {
+        width: 42rpx;
+      }
+      text {
+        margin-top: 10rpx;
+        font-size: 24rpx;
+        font-weight: 500;
+        color: #414141;
+      }
+    }
+  }
+
+  .right {
+    margin-left: 30rpx;
+    flex-shrink: 0;
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 10rpx;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    image {
+      width: 32rpx;
+    }
+    text {
+      margin-top: 10rpx;
+      font-size: 24rpx;
+      font-weight: 500;
+      color: #414141;
+    }
+    .corner {
+      position: absolute;
+      top: 0;
+      left: 6rpx;
+      width: 94rpx;
+      image {
+        width: 100%;
+      }
+      text {
+        position: absolute;
+        top: -8rpx;
+        left: 18rpx;
+        font-size: 24rpx;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.month {
+  padding: 30rpx;
+  .layer {
+    height: 150rpx;
+    border-radius: 10rpx;
+    background: #f8f8f8;
+    display: flex;
+    justify-content: space-between;
+    .item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .top {
+        text:nth-child(1) {
+          font-size: 36rpx;
+          color: #333;
+          vertical-align: baseline;
+        }
+        text:nth-child(2) {
+          padding-left: 6rpx;
+          font-size: 24rpx;
+          color: #999;
+          vertical-align: baseline;
+        }
+      }
+      .bottom {
+        font-size: 28rpx;
+        color: #414141;
+      }
+    }
   }
 }
 </style>
