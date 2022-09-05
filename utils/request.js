@@ -27,7 +27,7 @@ const okAction = (otherParams) => {
 
 const errorAction = (error) => {
   uni.showModal({
-    content: error.msg,
+    content: error.errors,
     showCancel: false
   })
 }
@@ -49,13 +49,6 @@ const noPermissionAction = () => {
 const instance = (option) => {
   return new Promise((resolve, reject) => {
     const { url, method, data, otherParams } = option
-
-    // const dataResolve = method == "POST" ? qs.stringify(data) : data
-
-    // const header = method == "POST" ? {
-    //   "Content-Type": "application/x-www-form-urlencoded",
-    //   accessToken: store.state.app.token
-    // } : { accessToken: store.state.app.token }
 
     const header = {}
 

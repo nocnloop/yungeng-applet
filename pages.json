@@ -43,6 +43,13 @@
 				"navigationBarTitleText": "设备详情",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path": "pages/select/select",
+			"style": {
+				"navigationBarTitleText": "选择设备",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {

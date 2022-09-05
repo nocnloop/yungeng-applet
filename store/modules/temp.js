@@ -2,25 +2,26 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-04-24 13:34:56
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-08-30 10:51:27
+ * @LastEditTime: 2022-09-01 10:18:46
  * @Description: file content
  * @FilePath: /yungeng-applet/store/modules/temp.js
  */
 const state = {
-  currentEditCar: {},
+  machineList: [],
 
-  message: {},
+  selectMachineIndex: 0,
 
   scanMachine: {}
 }
 
 const actions = {
-  currentEditCarAction: ({ commit }, payload) => {
-    state.currentEditCar = payload
+
+  selectMachineIndexAction: ({ commit }, payload) => {
+    state.selectMachineIndex = payload
   },
 
-  readMessageAction: ({ commit }, payload) => {
-    state.message = payload
+  machineListAction: ({ commit }, payload) => {
+    state.machineList = payload
   },
 
   scanMachineAction: ({ commit }, payload) => {

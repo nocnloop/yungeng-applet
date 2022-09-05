@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-04-18 17:07:45
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-08-29 17:21:28
+ * @LastEditTime: 2022-08-31 14:30:48
  * @Description: file content
  * @FilePath: /yungeng-applet/App.vue
 -->
@@ -52,5 +52,10 @@ export default {
 
 .u-button--primary {
   background-image: linear-gradient(to right, #0dccff, #4760ff);
+}
+
+.safe {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

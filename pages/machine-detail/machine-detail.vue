@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-08-30 10:39:47
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-08-30 11:32:03
+ * @LastEditTime: 2022-08-31 14:11:43
  * @Description: file content
  * @FilePath: /yungeng-applet/pages/machine-detail/machine-detail.vue
 -->
@@ -16,8 +16,8 @@
         <u-form-item label="序列号">
           <u--input :value="formData.productSeries" border="none" disabled disabledColor="#ffffff"></u--input>
         </u-form-item>
-        <u-form-item label="设备名称">
-          <u--input prefixIcon="edit-pen" :value="formData.deviceName" border="none"></u--input>
+        <u-form-item label="设备名称" prop="deviceName">
+          <u--input prefixIcon="edit-pen" v-model="formData.deviceName" border="none"></u--input>
         </u-form-item>
       </u--form>
     </view>
@@ -28,6 +28,7 @@
   </view>
 </template>
 <script>
+import { bindingdevice } from "@/api/machine"
 export default {
 
   data() {
@@ -49,8 +50,18 @@ export default {
   },
 
   methods: {
-    onSubmit() {
-
+    async onSubmit() {
+      try {
+        await this.$refs.form.validate()
+        this.isLoading = true
+        const { deviceName, deviceIMEI } = this.formData
+        await bindingdevice({ deviceName, deviceIMEI })
+        uni.navigateBack()
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.isLoading = false
+      }
     }
   }
 }

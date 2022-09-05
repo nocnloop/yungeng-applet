@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-05-13 16:46:09
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-08-30 16:51:51
+ * @LastEditTime: 2022-09-01 11:37:34
  * @Description: file content
  * @FilePath: /yungeng-applet/pages/index/index.vue
 -->
@@ -11,8 +11,8 @@
     <!-- 导航 -->
     <u-navbar>
       <view class="u-nav-slot" slot="left">
-        <view class="machine">
-          <text>机器111</text>
+        <view class="machine" @click="selectMachine">
+          <text>{{ cur.deviceName }}</text>
           <text>工作中</text>
           <u-icon name="arrow-down-fill" color="#999" size="20rpx"></u-icon>
         </view>
@@ -95,6 +95,7 @@
 
 <script>
 import location from "@/mixins/location"
+import { queryDeviceWorkingCondition, getdeviceworkingstatistics, querydevices } from "@/api/machine"
 
 export default {
 
@@ -106,12 +107,20 @@ export default {
       cornerImg: require("@/static/images/home/corner.png"),
       h1Img: require("@/static/images/home/h1.png"),
       h2Img: require("@/static/images/home/h2.png"),
-      h3Img: require("@/static/images/home/h3.png")
+      h3Img: require("@/static/images/home/h3.png"),
+      condition: {},
+      monthData: {}
     }
   },
 
   onLoad() {
+    this.querydevices()
+  },
 
+  computed: {
+    cur() {
+      return this.$store.state.temp.machineList[this.$store.state.temp.selectMachineIndex] ?? {}
+    }
   },
 
   onPullDownRefresh() {
@@ -120,9 +129,39 @@ export default {
 
   methods: {
 
+    selectMachine() {
+      uni.navigateTo({ url: "/pages/select/select" })
+    },
+
     afterGetLocation() {
       console.log(this.latitude)
       console.log(this.longitude)
+    },
+
+    async querydevices() {
+      const result = await querydevices()
+      this.$store.dispatch("temp/machineListAction", result.data)
+      this.$store.dispatch("temp/selectMachineIndexAction", 0)
+    },
+
+    async getdeviceworkingstatistics() {
+      const result = await getdeviceworkingstatistics({ deviceIMEI: this.cur.deviceIMEI })
+      this.monthData = result.data
+    },
+
+    async  queryDeviceWorkingCondition() {
+      const result = await queryDeviceWorkingCondition({ deviceIMEI: this.cur.deviceIMEI })
+      this.condition = result.data
+    }
+  },
+
+  watch: {
+    cur: {
+      handler: function() {
+        this.getdeviceworkingstatistics()
+        this.queryDeviceWorkingCondition()
+      },
+      deep: true
     }
   }
 }
