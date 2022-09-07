@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-05-13 16:46:09
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-09-01 11:37:34
+ * @LastEditTime: 2022-09-05 17:52:28
  * @Description: file content
  * @FilePath: /yungeng-applet/pages/index/index.vue
 -->
@@ -13,7 +13,7 @@
       <view class="u-nav-slot" slot="left">
         <view class="machine" @click="selectMachine">
           <text>{{ cur.deviceName }}</text>
-          <text>工作中</text>
+          <text>{{ usageStatus(cur.usageStatus) }}</text>
           <u-icon name="arrow-down-fill" color="#999" size="20rpx"></u-icon>
         </view>
       </view>
@@ -21,7 +21,7 @@
     <view style="height: 80px"></view>
     <!-- 里程 -->
     <view class="distance">
-      <text class="left">767</text>
+      <text class="left">{{ condition.workingMile.toFixed(0) }}</text>
       <view class="right">
         <text>km</text>
         <text>累计里程</text>
@@ -30,11 +30,11 @@
     <!-- 时间 -->
     <view class="day">
       <view>
-        <text>5623</text>
+        <text>{{ condition.workingArea.toFixed(0) }}</text>
         <text>㎡</text>
       </view>
       <view>
-        <text>322</text>
+        <text>{{ condition.workingTime.toFixed(0) }}</text>
         <text>天</text>
       </view>
     </view>
@@ -64,25 +64,25 @@
       </view>
     </view>
     <!-- 月统计 -->
-    <view class="month">
+    <view class="month" @click="toDetail">
       <view class="layer">
         <view class="item">
           <view class="top">
-            <text>356</text>
+            <text>{{ monthData.workingArea.toFixed(0) }}</text>
             <text>亩</text>
           </view>
           <text class="bottom">本月作业亩数</text>
         </view>
         <view class="item">
           <view class="top">
-            <text>356</text>
+            <text>{{ monthData.workingTime.toFixed(0) }}</text>
             <text>h</text>
           </view>
           <text class="bottom">本月作业时间</text>
         </view>
         <view class="item">
           <view class="top">
-            <text>356</text>
+            <text>{{ monthData.workingMile.toFixed(0) }}</text>
             <text>km</text>
           </view>
           <text class="bottom">本月作业里程</text>
@@ -90,16 +90,27 @@
       </view>
       <view></view>
     </view>
+    <!-- 地图 -->
+    <view class="map">
+      <map
+        id="map"
+        v-if="location.latitude"
+        :style="{ width: '100%', height: mapHeight }"
+        :latitude="location.latitude"
+        :longitude="location.longitude"
+        :markers="markers"
+      />
+    </view>
   </view>
 </template>
 
 <script>
-import location from "@/mixins/location"
-import { queryDeviceWorkingCondition, getdeviceworkingstatistics, querydevices } from "@/api/machine"
+// import location from "@/mixins/location"
+import { queryDeviceWorkingCondition, getdeviceworkingstatistics, getdevicelocation, querydevices } from "@/api/machine"
 
 export default {
 
-  mixins: [location],
+  // mixins: [location],
 
   data() {
     return {
@@ -108,34 +119,75 @@ export default {
       h1Img: require("@/static/images/home/h1.png"),
       h2Img: require("@/static/images/home/h2.png"),
       h3Img: require("@/static/images/home/h3.png"),
-      condition: {},
-      monthData: {}
+      condition: {
+        workingMile: 0,
+        workingArea: 0,
+        workingTime: 0
+      },
+      monthData: {
+        workingMile: 0,
+        workingArea: 0,
+        workingTime: 0
+      },
+      location: {
+        latitude: 0,
+        longitude: 0
+      },
+      mapHeight: "0",
+      positionImg: require("@/static/images/home/position.png")
     }
   },
 
   onLoad() {
     this.querydevices()
+    this.$nextTick(() => this.getMapHeight())
   },
 
   computed: {
     cur() {
       return this.$store.state.temp.machineList[this.$store.state.temp.selectMachineIndex] ?? {}
+    },
+
+    markers() {
+      return [
+        {
+          id: this.cur.id,
+          latitude: this.location.latitude ?? 0,
+          longitude: this.location.longitude ?? 0,
+          iconPath: this.positionImg,
+          with: 20
+        }
+      ]
     }
   },
 
-  onPullDownRefresh() {
-    this.getLocation()
-  },
+  // onPullDownRefresh() {
+  //   this.getLocation()
+  // },
 
   methods: {
 
-    selectMachine() {
-      uni.navigateTo({ url: "/pages/select/select" })
+    // afterGetLocation() {
+    //   console.log(this.latitude)
+    //   console.log(this.longitude)
+    // },
+    getMapHeight() {
+      const query = uni.createSelectorQuery().in(this)
+      const cb = (data) => (this.mapHeight = (data.height - 10) + "px")
+      query.select(".map").boundingClientRect(cb).exec()
     },
 
-    afterGetLocation() {
-      console.log(this.latitude)
-      console.log(this.longitude)
+    usageStatus(key) {
+      const config = {
+        0: "离线",
+        1: "在线",
+        2: "作业中"
+      }
+      return config[key]
+    },
+
+    selectMachine() {
+      uni.navigateTo({ url: "/pages/select/select" })
     },
 
     async querydevices() {
@@ -152,6 +204,15 @@ export default {
     async  queryDeviceWorkingCondition() {
       const result = await queryDeviceWorkingCondition({ deviceIMEI: this.cur.deviceIMEI })
       this.condition = result.data
+    },
+
+    async getdevicelocation() {
+      const result = await getdevicelocation({ deviceIMEI: this.cur.deviceIMEI })
+      this.location = result.data
+    },
+
+    toDetail() {
+      uni.navigateTo({ url: "/pages/month/month" })
     }
   },
 
@@ -160,6 +221,7 @@ export default {
       handler: function() {
         this.getdeviceworkingstatistics()
         this.queryDeviceWorkingCondition()
+        this.getdevicelocation()
       },
       deep: true
     }
@@ -167,6 +229,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .machine {
   display: flex;
   align-items: center;
@@ -181,7 +249,9 @@ export default {
     color: #999999;
   }
 }
+
 .distance {
+  margin-top: 60rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -327,5 +397,11 @@ export default {
       }
     }
   }
+}
+
+.map {
+  flex: 1;
+  display: flex;
+  padding: 0 30rpx;
 }
 </style>

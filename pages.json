@@ -50,6 +50,13 @@
 				"navigationBarTitleText": "选择设备",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path": "pages/month/month",
+			"style": {
+				"navigationBarTitleText": "作业中心",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {

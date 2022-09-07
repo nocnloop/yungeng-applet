@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-08-29 17:12:43
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-09-01 10:56:57
+ * @LastEditTime: 2022-09-05 16:57:22
  * @Description: file content
  * @FilePath: /yungeng-applet/api/machine.js
  */
@@ -36,5 +36,10 @@ export function queryDeviceWorkingCondition(params, otherParams) {
 
 export function getdeviceworkingstatistics(params, otherParams) {
   const url = "/micro/getdeviceworkingstatistics"
+  return httpPost(url, params, otherParams)
+}
+
+export function getdevicelocation(params, otherParams) {
+  const url = "/micro/getdevicelocation"
   return httpPost(url, params, otherParams)
 }
