@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-05-13 16:46:09
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-09-05 17:52:28
+ * @LastEditTime: 2022-10-18 14:01:35
  * @Description: file content
  * @FilePath: /yungeng-applet/pages/index/index.vue
 -->
@@ -39,7 +39,7 @@
       </view>
     </view>
     <!-- 功能按钮 -->
-    <view class="btns">
+    <view class="btns" @click="handleSet">
       <view class="left">
         <view class="item">
           <image :src="h1Img" mode="widthFix" />
@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs"
 // import location from "@/mixins/location"
 import { queryDeviceWorkingCondition, getdeviceworkingstatistics, getdevicelocation, querydevices } from "@/api/machine"
 
@@ -197,7 +198,12 @@ export default {
     },
 
     async getdeviceworkingstatistics() {
-      const result = await getdeviceworkingstatistics({ deviceIMEI: this.cur.deviceIMEI })
+      const curMonth = dayjs().month() + 1
+      const curYear = dayjs().year()
+      const curTime = `${curYear}-${curMonth}`
+      const beginTime = dayjs(curTime).startOf("month").format("YYYY-MM-DD HH:mm:ss")
+      const endTime = dayjs(curTime).endOf("month").format("YYYY-MM-DD HH:mm:ss")
+      const result = await getdeviceworkingstatistics({ deviceIMEI: this.cur.deviceIMEI, beginTime, endTime })
       this.monthData = result.data
     },
 
@@ -213,6 +219,11 @@ export default {
 
     toDetail() {
       uni.navigateTo({ url: "/pages/month/month" })
+    },
+
+    handleSet() {
+      console.log(this.cur.deviceIMEI)
+      uni.navigateTo({ url: "/pages/set/set?deviceIMEI=" + this.cur.deviceIMEI })
     }
   },
 
