@@ -2,7 +2,7 @@
  * @Author: Qiuxue.Wu - LCFC
  * @Date: 2022-05-13 16:46:09
  * @LastEditors: Qiuxue.Wu - LCFC
- * @LastEditTime: 2022-10-18 14:01:35
+ * @LastEditTime: 2022-10-29 15:52:49
  * @Description: file content
  * @FilePath: /yungeng-applet/pages/index/index.vue
 -->
@@ -218,11 +218,10 @@ export default {
     },
 
     toDetail() {
-      uni.navigateTo({ url: "/pages/month/month" })
+      uni.navigateTo({ url: "/pages/month/month?deviceIMEI=" + this.cur.deviceIMEI })
     },
 
     handleSet() {
-      console.log(this.cur.deviceIMEI)
       uni.navigateTo({ url: "/pages/set/set?deviceIMEI=" + this.cur.deviceIMEI })
     }
   },
